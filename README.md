@@ -2,9 +2,9 @@
 
 Sample of Prisma engine running in cloudflare workers and behaving similarly to prisma-accelerate.
 
-## Required settings on the deno-deploy side.
+## Required settings on the Cloudflare Workers side.
 
-- Deno Settings/Environment Variables
+- Cloudflare Workers Settings/Environment Variables
 
 wrangler.toml
 

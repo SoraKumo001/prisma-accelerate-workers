@@ -19,5 +19,9 @@
 		"@cloudflare/workers-types": "^4.20240129.0",
 		"typescript": "^5.3.3",
 		"wrangler": "^3.26.0"
-	}
+	},
+	"main": "index.js",
+	"repository": "https://github.com/SoraKumo001/prisma-accelerate-workers",
+	"author": "SoraKumo <info@croud.jp>",
+	"license": "MIT"
 }

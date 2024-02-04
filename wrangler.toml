@@ -1,6 +1,8 @@
 name = "prisma-accelerate-workers"
 main = "src/index.ts"
-compatibility_date = "2024-01-17"
+compatibility_date = "2024-01-28"
+minify = true
+node_compat = true
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
@@ -10,9 +12,9 @@ compatibility_date = "2024-01-17"
 
 # Bind a KV Namespace. Use KV as persistent storage for small key-value pairs.
 # Docs: https://developers.cloudflare.com/workers/runtime-apis/kv
-# [[kv_namespaces]]
-# binding = "MY_KV_NAMESPACE"
-# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+[[kv_namespaces]]
+binding = "KV"
+id = "dfb1cb13fcaf4899a624d03a63946e51"
 
 # Bind an R2 Bucket. Use R2 to store arbitrarily large blobs of data, such as files.
 # Docs: https://developers.cloudflare.com/r2/api/workers/workers-api-usage/
@@ -49,3 +51,6 @@ compatibility_date = "2024-01-17"
 # [[migrations]]
 # tag = "v1"
 # new_classes = ["MyDurableObject"]
+
+[vars]
+# SECRET = "**********"

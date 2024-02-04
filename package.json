@@ -1,15 +1,23 @@
 {
-  "name": "prisma-accelerate-workers",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
-    "start": "wrangler dev"
-  },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240117.0",
-    "typescript": "^5.0.4",
-    "wrangler": "^3.0.0"
-  }
+	"name": "prisma-accelerate-workers",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"start": "wrangler dev"
+	},
+	"dependencies": {
+		"@prisma/adapter-pg": "^5.10.0-dev.10",
+		"@prisma/client": "^5.10.0-dev.10",
+		"@types/pg": "^8.11.0",
+		"pg": "^8.11.3",
+		"prisma-accelerate-local": "^1.0.0"
+	},
+	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20240129.0",
+		"typescript": "^5.3.3",
+		"wrangler": "^3.26.0"
+	}
 }

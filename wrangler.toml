@@ -52,5 +52,5 @@ id = "dfb1cb13fcaf4899a624d03a63946e51"
 # tag = "v1"
 # new_classes = ["MyDurableObject"]
 
-[vars]
-# SECRET = "**********"
+# [vars]
+# SECRET = "******"

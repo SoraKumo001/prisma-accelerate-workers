@@ -1,6 +1,6 @@
 import { PrismaPg } from '@prisma/adapter-pg';
-import WASM from '@prisma/client/runtime/query-engine.wasm';
-import { PrismaAccelerate, PrismaAccelerateConfig, ResultError } from 'prisma-accelerate-local/lib';
+import WASM from '@prisma/client/runtime/query_engine_bg.postgresql.wasm';
+import { PrismaAccelerate, PrismaAccelerateConfig, ResultError } from './prisma-accelerate';
 import { getPrismaClient } from '@prisma/client/runtime/wasm.js';
 import pg from 'pg';
 
@@ -14,6 +14,7 @@ const getAdapter = (datasourceUrl: string) => {
 	const schema = url.searchParams.get('schema');
 	const pool = new pg.Pool({
 		connectionString: url.toString(),
+		max: 10000,
 	});
 	return new PrismaPg(pool, {
 		schema: schema ?? undefined,
@@ -36,6 +37,7 @@ const getPrismaAccelerate = async ({
 	prismaAccelerate = new PrismaAccelerate({
 		secret,
 		adapter: (datasourceUrl) => getAdapter(datasourceUrl),
+		getRuntime: () => require(`@prisma/client/runtime/query_engine_bg.postgresql.js`),
 		getQueryEngineWasmModule: async () => {
 			return WASM;
 		},
@@ -65,12 +67,14 @@ export default {
 		const createResponse = (result: Promise<unknown>) =>
 			result
 				.then((r) => {
+					console.log(r);
 					return new Response(JSON.stringify(r), {
 						headers: { 'content-type': 'application/json' },
 					});
 				})
 				.catch((e) => {
 					if (e instanceof ResultError) {
+						console.error(e.value);
 						return new Response(JSON.stringify(e.value), {
 							status: e.code,
 							headers: { 'content-type': 'application/json' },
@@ -84,6 +88,7 @@ export default {
 
 		if (request.method === 'POST') {
 			const body = await request.text();
+			console.log(body);
 			switch (command) {
 				case 'graphql':
 					return createResponse(prismaAccelerate.query({ body, hash, headers }));

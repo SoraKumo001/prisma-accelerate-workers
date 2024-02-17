@@ -2,7 +2,7 @@ name = "prisma-accelerate-workers"
 main = "src/index.ts"
 compatibility_date = "2024-01-28"
 minify = true
-node_compat = true
+
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
@@ -53,4 +53,4 @@ id = "dfb1cb13fcaf4899a624d03a63946e51"
 # new_classes = ["MyDurableObject"]
 
 # [vars]
-# SECRET = "******"
+# SECRET = "****"

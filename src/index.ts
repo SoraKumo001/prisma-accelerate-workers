@@ -1,8 +1,8 @@
-import { PrismaPg } from '@prisma/adapter-pg';
+import { Pool } from '@neondatabase/serverless';
+import { PrismaNeon } from '@prisma/adapter-neon';
 import WASM from '@prisma/client/runtime/query_engine_bg.postgresql.wasm';
 import { PrismaAccelerate, PrismaAccelerateConfig, ResultError } from './prisma-accelerate';
 import { getPrismaClient } from '@prisma/client/runtime/wasm.js';
-import pg from 'pg';
 
 export interface Env {
 	SECRET: string;
@@ -12,11 +12,10 @@ export interface Env {
 const getAdapter = (datasourceUrl: string) => {
 	const url = new URL(datasourceUrl);
 	const schema = url.searchParams.get('schema');
-	const pool = new pg.Pool({
+	const pool = new Pool({
 		connectionString: url.toString(),
-		max: 10000,
 	});
-	return new PrismaPg(pool, {
+	return new PrismaNeon(pool, {
 		schema: schema ?? undefined,
 	});
 };
@@ -35,6 +34,7 @@ const getPrismaAccelerate = async ({
 		return prismaAccelerate;
 	}
 	prismaAccelerate = new PrismaAccelerate({
+		singleInstance: true,
 		secret,
 		adapter: (datasourceUrl) => getAdapter(datasourceUrl),
 		getRuntime: () => require(`@prisma/client/runtime/query_engine_bg.postgresql.js`),

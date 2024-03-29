@@ -1,8 +1,8 @@
-import pg from 'pg';
+import { Pool } from '@prisma/pg-worker';
+import { PrismaPg } from '@prisma/adapter-pg-worker';
 import WASM from '@prisma/client/runtime/query_engine_bg.postgresql.wasm';
-import { getPrismaClient } from '@prisma/client/runtime/wasm.js';
 import { PrismaAccelerate, PrismaAccelerateConfig, ResultError } from 'prisma-accelerate-local/lib';
-import { PrismaPg } from '@prisma/adapter-pg';
+import { getPrismaClient } from '@prisma/client/runtime/wasm.js';
 
 export interface Env {
 	SECRET: string;
@@ -12,7 +12,7 @@ export interface Env {
 const getAdapter = (datasourceUrl: string) => {
 	const url = new URL(datasourceUrl);
 	const schema = url.searchParams.get('schema');
-	const pool = new pg.Pool({
+	const pool = new Pool({
 		connectionString: url.toString(),
 	});
 	return new PrismaPg(pool, {
@@ -33,15 +33,16 @@ const getPrismaAccelerate = async ({
 	if (prismaAccelerate) {
 		return prismaAccelerate;
 	}
+	const runtime = require(`@prisma/client/runtime/query_engine_bg.postgresql.js`);
 	prismaAccelerate = new PrismaAccelerate({
 		singleInstance: true,
 		secret,
 		adapter: (datasourceUrl) => getAdapter(datasourceUrl),
-		getRuntime: () => require(`@prisma/client/runtime/query_engine_bg.postgresql.js`),
+		getRuntime: () => runtime,
 		getQueryEngineWasmModule: async () => {
 			return WASM;
 		},
-		getPrismaClient: getPrismaClient as never,
+		getPrismaClient,
 		onRequestSchema,
 		onChangeSchema,
 	});
@@ -53,10 +54,10 @@ export default {
 		const prismaAccelerate = await getPrismaAccelerate({
 			secret: env.SECRET ?? 'test',
 			onRequestSchema: ({ engineVersion, hash, datasourceUrl }) => {
-				return env.KV.get(`${engineVersion}:${hash}:${datasourceUrl}`);
+				return env.KV.get(`schema-${engineVersion}:${hash}:${datasourceUrl}`);
 			},
 			onChangeSchema: ({ inlineSchema, engineVersion, hash, datasourceUrl }) => {
-				return env.KV.put(`${engineVersion}:${hash}:${datasourceUrl}`, inlineSchema, { expirationTtl: 60 * 60 * 24 * 7 });
+				return env.KV.put(`schema-${engineVersion}:${hash}:${datasourceUrl}`, inlineSchema, { expirationTtl: 60 * 60 * 24 * 7 });
 			},
 		});
 
@@ -67,7 +68,6 @@ export default {
 		const createResponse = (result: Promise<unknown>) =>
 			result
 				.then((r) => {
-					console.log(r);
 					return new Response(JSON.stringify(r), {
 						headers: { 'content-type': 'application/json' },
 					});
@@ -88,7 +88,6 @@ export default {
 
 		if (request.method === 'POST') {
 			const body = await request.text();
-			console.log(body);
 			switch (command) {
 				case 'graphql':
 					return createResponse(prismaAccelerate.query({ body, hash, headers }));

@@ -11,12 +11,12 @@ export interface Env {
 
 const getAdapter = (datasourceUrl: string) => {
 	const url = new URL(datasourceUrl);
-	const schema = url.searchParams.get('schema');
+	const schema = url.searchParams.get('schema') ?? undefined;
 	const pool = new pg.Pool({
 		connectionString: url.toString(),
 	});
 	return new PrismaPg(pool, {
-		schema: schema ?? undefined,
+		schema,
 	});
 };
 

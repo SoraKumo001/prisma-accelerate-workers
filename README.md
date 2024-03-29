@@ -4,13 +4,36 @@ Sample of Prisma engine running in cloudflare workers and behaving similarly to 
 
 ## Required settings on the Cloudflare Workers side.
 
-- Cloudflare Workers Settings/Environment Variables
+### fix prisma adapter
+
+Prisma's Adapter calls unnecessary util and needs to be addressed.
+
+- src/polyfills/util.ts
+
+```ts
+export * from 'node:util';
+```
+
+- tsconfig.json
+
+```json
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"util": ["src/polyfills/util"]
+		}
+	}
+}
+```
+
+### Cloudflare Workers Settings/Environment Variables
 
 wrangler.toml
 
 ```toml
 minify = true
-node_compat = true
+compatibility_flags = [ "nodejs_compat" ]
 
 [[kv_namespaces]]
 binding = "KV"

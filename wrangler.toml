@@ -2,7 +2,7 @@ name = "prisma-accelerate-workers"
 main = "src/index.ts"
 compatibility_date = "2024-02-23"
 minify = true
-node_compat = true
+compatibility_flags = [ "nodejs_compat" ]
 
 [placement]
 mode = "smart"

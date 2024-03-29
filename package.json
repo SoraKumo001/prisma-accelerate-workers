@@ -9,13 +9,14 @@
 		"start": "wrangler dev"
 	},
 	"dependencies": {
-		"@prisma/adapter-pg-worker": "^5.11.0",
+		"@prisma/adapter-pg": "~5.11.0",
 		"@prisma/client": "^5.11.0",
-		"@prisma/pg-worker": "^5.11.0",
+		"pg": "^8.11.3",
 		"prisma-accelerate-local": "^1.1.2"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20240320.1",
+		"@types/pg": "^8.11.4",
 		"typescript": "^5.4.3",
 		"wrangler": "^3.39.0"
 	},

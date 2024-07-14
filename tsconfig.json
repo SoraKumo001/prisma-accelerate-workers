@@ -98,19 +98,6 @@
 
 		/* Completeness */
 		// "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
-		"skipLibCheck": true /* Skip type checking all .d.ts files. */,
-		"baseUrl": ".",
-		"paths": {
-			// "assert": ["src/polyfills/assert"],
-			// "buffer": ["src/polyfills/buffer"],
-			// "crypto": ["src/polyfills/crypto"],
-			// "dns": ["src/polyfills/dns"],
-			// "fs": ["src/polyfills/fs"],
-			// "net": ["src/polyfills/net"],
-			// "path": ["src/polyfills/path"],
-			// "stream": ["src/polyfills/stream"],
-			// "tls": ["src/polyfills/tls"],
-			"util": ["src/polyfills/util"]
-		}
+		"skipLibCheck": true /* Skip type checking all .d.ts files. */
 	}
 }

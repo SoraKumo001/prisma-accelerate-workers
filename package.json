@@ -9,17 +9,18 @@
 		"start": "wrangler dev"
 	},
 	"dependencies": {
-		"@prisma/adapter-pg": "~5.16.2",
-		"@prisma/adapter-pg-worker": "^5.16.2",
-		"@prisma/client": "^5.16.2",
-		"pg": "^8.12.0",
-		"prisma-accelerate-local": "^1.1.5"
+		"@prisma/adapter-pg": "<5.20.0",
+		"@prisma/adapter-pg-worker": "<5.20.0",
+		"@prisma/client": "<5.20.0",
+		"pg": "^8.13.0",
+		"prisma-accelerate-local": "^1.1.7"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20240712.0",
-		"@types/pg": "^8.11.6",
-		"typescript": "^5.5.3",
-		"wrangler": "^3.64.0"
+		"@cloudflare/workers-types": "^4.20241004.0",
+		"@types/pg": "^8.11.10",
+		"pg-compat": "^0.0.7",
+		"typescript": "^5.6.3",
+		"wrangler": "^3.80.3"
 	},
 	"main": "index.js",
 	"repository": "https://github.com/SoraKumo001/prisma-accelerate-workers",

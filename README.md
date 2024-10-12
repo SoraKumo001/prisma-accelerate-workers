@@ -21,9 +21,9 @@ Use Prisma versions lower than 5.20.0; due to the size of the wasm, it will not 
 		"start": "wrangler dev"
 	},
 	"dependencies": {
-		"@prisma/adapter-pg": "<5.20.0",
-		"@prisma/adapter-pg-worker": "<5.20.0",
-		"@prisma/client": "<5.20.0",
+		"@prisma/adapter-pg": "5.19.1",
+		"@prisma/adapter-pg-worker": "5.19.1",
+		"@prisma/client": "5.19.1",
 		"pg": "^8.13.0",
 		"prisma-accelerate-local": "^1.1.6"
 	},
@@ -33,6 +33,11 @@ Use Prisma versions lower than 5.20.0; due to the size of the wasm, it will not 
 		"pg-compat": "^0.0.7",
 		"typescript": "^5.6.2",
 		"wrangler": "^3.78.12"
+	},
+	"resolutions": {
+		"@prisma/client": "5.19.1",
+		"@prisma/adapter-pg": "5.19.1",
+		"@prisma/adapter-pg-worker": "5.19.1"
 	}
 }
 ```

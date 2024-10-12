@@ -22,6 +22,11 @@
 		"typescript": "^5.6.3",
 		"wrangler": "^3.80.3"
 	},
+	"resolutions": {
+		"@prisma/client": "5.19.1",
+		"@prisma/adapter-pg": "5.19.1",
+		"@prisma/adapter-pg-worker": "5.19.1"
+	},
 	"main": "index.js",
 	"repository": "https://github.com/SoraKumo001/prisma-accelerate-workers",
 	"author": "SoraKumo <info@croud.jp>",

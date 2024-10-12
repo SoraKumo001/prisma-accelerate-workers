@@ -9,6 +9,7 @@ export type Env = {
 
 export default {
 	fetch: createFetcher({
+		runtime: () => require(`@prisma/client/runtime/query_engine_bg.postgresql.js`),
 		secret: (env: Env) => env.SECRET,
 		queryEngineWasmModule: WASM,
 		adapter: (datasourceUrl: string) => {

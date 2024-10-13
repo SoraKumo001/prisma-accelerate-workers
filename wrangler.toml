@@ -10,9 +10,5 @@ mode = "smart"
 [observability]
 enabled = true
 
-[[kv_namespaces]]
-binding = "KV"
-id = "dfb1cb13fcaf4899a624d03a63946e51"
-
 # [vars]
 # SECRET = "****"

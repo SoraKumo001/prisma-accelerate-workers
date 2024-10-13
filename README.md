@@ -102,7 +102,3 @@ npx prisma-accelerate-local -s abc -m postgres://postgres:xxxx@db.example.com:54
 ```
 DATABASE_URL="prisma://xxxx.workers.dev/?api_key=xxx"
 ```
-
-```
-
-```

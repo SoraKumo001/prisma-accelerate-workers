@@ -6,8 +6,7 @@ Sample of Prisma engine running in cloudflare workers and behaving similarly to 
 
 - package.json
 
-Need `pg-compat` to patch `pg` to fix it.  
-Use Prisma versions lower than 5.20.0; due to the size of the wasm, it will not work with the free plan.
+Need `pg-compat` to patch `pg` to fix it.
 
 ```json
 {
@@ -32,10 +31,6 @@ Use Prisma versions lower than 5.20.0; due to the size of the wasm, it will not 
 		"pg-compat": "^0.0.7",
 		"typescript": "^5.6.3",
 		"wrangler": "^3.80.4"
-	},
-	"resolutions": {
-		"@prisma/client": "5.19.1",
-		"@prisma/adapter-pg": "5.19.1"
 	}
 }
 ```
